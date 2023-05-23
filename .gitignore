@@ -1,0 +1,9 @@
+.vimrc
+a.out
+*.o
+
+# Files for semestral work
+# gch = Compiled headers
+*.gch
+sw/obj/
+sw/notepad
