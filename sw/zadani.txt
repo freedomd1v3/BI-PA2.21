@@ -1,0 +1,41 @@
+Aplikace: poznámkovník
+
+Zadáním je vytvořit poznámkovník. Požadovanou implementaci
+lze nalézt na Progtestu, vlastní aplikace je zatím
+zaměřena na splnění těchto požadavků.
+
+Zaprvé, je potřeba vyřešit komunikaci s uživatelem.
+Ta probíhá v terminálu textově.
+K tomu slouží třída "Menu", deklarovaná v src/menu.hpp, obsahující
+všechny potřebné metody (např. ask_user() pro dotaz uživateli na to,
+co chce udělat; add_distance() pro přidání prázdných řádků
+pro lepší přehlednost a další) pro tuto komunikaci.
+
+Zadruhé, musíme naimplementovat následující druhy poznámek:
+textová, nákupní seznam a to-do list. Všechny jsou potomci abstraktní
+třídy "Note. Ta obsahuje různé metody k úpravě a zčítání
+informací poznámek, např. edit() a create() (které využívjí private metody
+set_name() a add_tag()), create(), save() (pro ukládání do std::ofstream &),
+get_name() pro načtení jména poznámky a další.
+
+Zatřetí, potřebujeme nějak ukládat / sčítat ty poznámky do / z uložiště.
+Tohoto dosáhneme pomocí třídy "Note_Storage" (src/note_storage.hpp).
+Nejde o uložiště do RAMky, ale spíše o most mezi paměti a pevným diskem,
+až na uložení výsledků hledání poznámek s různými filtry.
+Obsahuje např. metody update() (uložit/aktualizovat poznámku),
+read() (sčíst poznámku z uložiště), export_note() (exportovat poznámku).
+
+Naposledy musíme nějak vyhledávat mezi poznámky. Toto můžeme udělat
+pomocí abstraktní třídy "Filter" (src/filters/filter.hpp), která
+pomůže najít poznámky, patřící do tohoto filtru (metoda search()).
+Filtry mohou být název, datum vytvoření, adresář, štítek a text,
+který musí poznámka obsahovat.
+
+
+Menu může pomoct uživateli poznámky vytvořit, zobrazit,
+vyhledat, upravit, smazat, exportovat nebo importovat.
+Export do Markdownu probíhá v sekci "Export".
+Ten je založen na abstraktní třídě "Export", což umožňuje
+snadnější vývoj exportů do dalších standardních formatů.
+Takže v sekcích "Display" a "Export" jde zobrazit / resp. exportovat
+poznámky, které byly nalezeny pomocí vyhledávání.
